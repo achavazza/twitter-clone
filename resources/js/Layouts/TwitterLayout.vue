@@ -43,6 +43,18 @@ const closeMessageBox = () => {
     uploadType.value = ''
 }
 
+const addTweet = () => {
+    if(!tweet.value) return
+
+    let data = new FormData()
+
+    data.append('tweet', tweet.value)
+    data.append('file', file.value)
+
+    router.post('/tweets', data)
+    closeMessageBox()
+}
+
 </script>
 
 <template>
@@ -219,6 +231,7 @@ const closeMessageBox = () => {
                     <ArrowLeft fillColor="#FFFFFF" :size="28" class="md:hidden block"/>
                 </div>
                  <button
+                    @click="addTweet()"
                     :disabled="!tweet"
                     :class="tweet ? 'bg-[#1C9CEF] text-white' : 'bg-[#124D77] text-gray-400'"
                     class="md:hidden font-extrabold text-[16px] p-1.5 px-4 rounded-full cursor-pointer"
@@ -282,9 +295,9 @@ const closeMessageBox = () => {
                             </div>
                         </div>
                         <button
+                            @click="addTweet()"
                             :class="tweet ? 'bg-[#1C9CEF] text-white' : 'bg-[#124D77] text-gray-400'"
                             :disabled="!tweet"
-                            @click="addTweet()"
                             class=" hidden md:block font-extrabold text-[16px] p-1.5 px-4 rounded-full cursor-pointer"
                         >
                             Tweet
